@@ -134,8 +134,8 @@ async def txt_handler(bot: Client, m: Message):
     await editable.edit("**Send Me Your Batch Name or send `df` for grabing from text filename.**")
     input1: Message = await bot.listen(editable.chat.id)
     raw_text0 = input1.text
-    a
     await input3.delete(True)
+    
     if raw_text3 == 'df':
         MR = "Group Admin:)™"
     else:
