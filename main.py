@@ -25,36 +25,52 @@ import urllib.parse
 import tgcrypto
 import cloudscraper
 
-bot = Client("bot",
-             bot_token='',
-             api_id=27498866,
-             api_hash='96fbb6ad2e11ab04e83ca09ef3f42455')
+from pyrogram import Client, filters
+from pyrogram.types import Message
+from subprocess import getstatusoutput
+import os
+import sys
 
-owner_id = []
-auth_users = []
+bot = Client(
+    "bot",
+    bot_token='',
+    api_id=27498866,
+    api_hash='96fbb6ad2e11ab04e83ca09ef3f42455'
+)
+
+owner_id = [8080218275]
+auth_users = [8080218275, 7417246937]
+
 photo1 = 'https://i.ibb.co/wZPLSVKc/photo-2025-05-03-06-52-33-7500108789786345476.jpg'
 getstatusoutput(f"wget {photo1} -O 'https://i.ibb.co/9m51SQsg/photo-2025-05-03-06-52-43-7500108832736018436.jpg'")
 photo = "https://i.ibb.co/W4KTfKpq/photo-2025-04-25-18-45-46-7500108398944321540.jpg"
 
-
 token_cp = 'your cp token'
 
-@bot.on_message(filters.command(["start"]) & filters.user(owner_id))
-async def account_login(bot: Client, m: Message):
-    await m.reply_text(f"**Hello Bruh** [{m.from_user.first_name}](tg://user?id={m.from_user.id})\n>>I am TXT file Downloader Bot.\n>>Send me /txt Command And Follow Steps\nIf You Want To Stop Me Just Send /stop to stop me 😎")
 
-@bot.on_message(filters.command("txt"))
-async def restart_handler(_, m):
+@bot.on_message(filters.command("start") & filters.user(owner_id))
+async def start_handler(bot: Client, m: Message):
+    await m.reply_text(
+        f"**Hello Bruh** [{m.from_user.first_name}](tg://user?id={m.from_user.id})\n"
+        f">> I am TXT file Downloader Bot.\n"
+        f">> Send me /txt Command And Follow Steps\n"
+        f">> If You Want To Stop Me Just Send /stop to stop me 😎"
+    )
+
+
+@bot.on_message(filters.command("stop") & filters.user(owner_id))
+async def stop_handler(_, m: Message):
     await m.reply_text("🚦**STOPPED**🚦", True)
     os.execl(sys.executable, sys.executable, *sys.argv)
 
-@bot.on_message(filters.command(["txt"]))
-async def account_login(bot: Client, m: Message):
+
+@bot.on_message(filters.command("txt") & filters.user(owner_id))
+async def txt_handler(bot: Client, m: Message):
     editable = await m.reply_text("**Please Send TXT file for download**")
     input: Message = await bot.listen(editable.chat.id)
     y = await input.download()
-    file_name, ext = os.path.splitext(os.path.basename(y))  # Extract filename & extension
-    x = y  # No decryption, use the file as is
+    file_name, ext = os.path.splitext(os.path.basename(y))
+    x = y
 
     path = f"./downloads/{m.chat.id}"
 
@@ -76,19 +92,21 @@ async def account_login(bot: Client, m: Message):
     raw_text = input0.text
     await input0.delete(True)
 
-    await editable.edit("**Send Me Your Batch Name or send `df` for grabing from text filename.**")
+    await editable.edit("**Send Me Your Batch Name or send `df` for grabbing from text filename.**")
     input1: Message = await bot.listen(editable.chat.id)
     raw_text0 = input1.text
     await input1.delete(True)
-    if raw_text0 == 'df':
+
+    if raw_text0.lower() == 'df':
         b_name = file_name
     else:
         b_name = raw_text0
 
-    await editable.edit("**Enter resolution** `1080` , `720` , `480` , `360` , `240` , `144`")
+    await editable.edit("**Enter resolution** `1080`, `720`, `480`, `360`, `240`, `144`")
     input2: Message = await bot.listen(editable.chat.id)
     raw_text2 = input2.text
     await input2.delete(True)
+
     try:
         if raw_text2 == "144":
             res = "256x144"
@@ -107,9 +125,16 @@ async def account_login(bot: Client, m: Message):
     except Exception:
         res = "UN"
 
-    await editable.edit("**Now Enter A Caption to add caption on your uploaded file\n\n>>OR Send `df` for use default**")
+    await editable.edit("**Now Enter A Caption to add caption on your uploaded file\n\n>> OR Send `df` for use default**")
     input3: Message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
+    raw_text = input0.text
+    await input0.delete(True)
+
+    await editable.edit("**Send Me Your Batch Name or send `df` for grabing from text filename.**")
+    input1: Message = await bot.listen(editable.chat.id)
+    raw_text0 = input1.text
+    a
     await input3.delete(True)
     if raw_text3 == 'df':
         MR = "Group Admin:)™"
@@ -161,7 +186,7 @@ async def account_login(bot: Client, m: Message):
                 url = mpd
                 keys_string = " ".join([f"--key {key}" for key in keys])
             elif "edge.api.brightcove.com" in url:
-                bcov = 'bcov_auth={yourtoken} #yourcwtoken
+                bcov = 'bcov_auth={yourtoken}' #yourcwtoken
                 url = url.split("bcov_auth")[0]+bcov
             elif "tencdn.classplusapp" in url:
                 headers = {'Host': 'api.classplusapp.com', 'x-access-token': f'{token_cp}', 'user-agent': 'Mobile-Android', 'app-version': '1.4.37.1', 'api-version': '18', 'device-id': '5d0d17ac8b3c9f51', 'device-details': '2848b866799971ca_2848b8667a33216c_SDK-30', 'accept-encoding': 'gzip'}
