@@ -33,7 +33,7 @@ import sys
 
 bot = Client(
     "bot",
-    bot_token='',
+    bot_token='8074174971:AAFAvZ-modtQJVK9C-tkIsR0QnD-r1cN_Xk',
     api_id=24894984,
     api_hash='4956e23833905463efb588eb806f9804'
 )
