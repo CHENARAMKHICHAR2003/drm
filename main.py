@@ -34,12 +34,12 @@ import sys
 bot = Client(
     "bot",
     bot_token='',
-    api_id=27498866,
-    api_hash='96fbb6ad2e11ab04e83ca09ef3f42455'
+    api_id=24894984,
+    api_hash='4956e23833905463efb588eb806f9804'
 )
 
-owner_id = [8080218275]
-auth_users = [8080218275, 7417246937]
+owner_id = [7889313105]
+auth_users = [7889313105,8183010692]
 
 photo1 = 'https://i.ibb.co/wZPLSVKc/photo-2025-05-03-06-52-33-7500108789786345476.jpg'
 getstatusoutput(f"wget {photo1} -O 'https://i.ibb.co/9m51SQsg/photo-2025-05-03-06-52-43-7500108832736018436.jpg'")
